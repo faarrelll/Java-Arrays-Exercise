@@ -32,12 +32,24 @@ public class SetChallenge {
 
         //soal 5
         List<String> email = new ArrayList<>(List.of("ani@gmail.com", "budi@yahoo.com", "cindy@gmail.com", "dodi@gmail.com"));
+        List<String> domains = new ArrayList<>();
         HashMap<String, Integer> totalDomain = new HashMap<>();
-        List<String> resultSplit = new ArrayList<>();
-        for (String domain : email) {
-            String result = domain.split("@")[1];
-            totalDomain.put(result, totalDomain.getOrDefault(result, 0) + 1);
-        }
+        email.forEach(domain -> {
+            String domainName = domain.split("@")[1];
+            domains.add(domainName);
+        });
+
+        Set<String> uniqueDomain = new HashSet<>(domains);
+        uniqueDomain.forEach(domain -> {
+            int count = 0;
+            for (String domainName : domains) {
+                if (domainName.equals(domain)) {
+                    count++;
+                }
+            }
+            totalDomain.put(domain, count);
+        });
+
         for (String domain : totalDomain.keySet()) {
             System.out.println(domain+": "+totalDomain.get(domain)+ " emails");
         }
